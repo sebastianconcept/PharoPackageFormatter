@@ -10,7 +10,7 @@ Metacello new
 ```
 ### Usage Example
 
-Apply it for all the packages of a project, for example, [Mapless](https://github.com/sebastianconcept/Mapless) here:
+Apply it for all the packages of a project, in order to normalize its code formatting. For example [this PR](https://github.com/sebastianconcept/Mapless/pull/36) was created with:
 
 ```smalltalk
 packages := { 'Mapless-Base-Core'. 
