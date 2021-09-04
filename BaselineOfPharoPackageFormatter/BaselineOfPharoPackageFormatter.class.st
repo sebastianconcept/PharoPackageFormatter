@@ -11,8 +11,8 @@ BaselineOfPharoPackageFormatter >> baseline: spec [
 		for: #common
 		do: [ self setUpPackages: spec.
 			spec
-				group: 'PharoPackageFormatter' with: #('PharoPackageFormatter');
-				group: 'default' with: #('PharoPackageFormatter') ]
+				group: 'Formatter' with: #('PharoPackageFormatter');
+				group: 'default' with: #('Formatter') ]
 ]
 
 { #category : #baselines }
