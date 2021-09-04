@@ -15,12 +15,7 @@ PharoPackageFormatter class >> formatClass: aClass [
 ]
 
 { #category : #actions }
-PharoPackageFormatter class >> formatClassesIn: aPackage [
-	^ aPackage classes do: [ :class | self formatClass: class ]
-]
-
-{ #category : #actions }
-PharoPackageFormatter class >> formatExtensions: extensionDictionary [
+PharoPackageFormatter class >> formatClassExtensions: extensionDictionary [
 	| class compiledMethod |
 	extensionDictionary
 		keysAndValuesDo: [ :symbol :selectors | 
@@ -35,9 +30,29 @@ PharoPackageFormatter class >> formatExtensions: extensionDictionary [
 ]
 
 { #category : #actions }
+PharoPackageFormatter class >> formatClassesIn: aPackage [
+	^ aPackage classes do: [ :class | self formatClass: class ]
+]
+
+{ #category : #actions }
 PharoPackageFormatter class >> formatExtensionsIn: aPackage [
-	self formatExtensions: aPackage classExtensionSelectors.
-	self formatExtensions: aPackage metaclassExtensionSelectors
+	self formatClassExtensions: aPackage classExtensionSelectors.
+	self formatMetaclassExtensions: aPackage metaclassExtensionSelectors
+]
+
+{ #category : #actions }
+PharoPackageFormatter class >> formatMetaclassExtensions: extensionDictionary [
+	| class compiledMethod |
+	extensionDictionary
+		keysAndValuesDo: [ :symbol :selectors | 
+			selectors
+				do: [ :selector | 
+					class := (self class environment at: symbol) class.
+					compiledMethod := class methodDict at: selector.
+					self
+						formatMethodCode: compiledMethod sourceCode
+						with: compiledMethod protocol
+						in: class ] ]
 ]
 
 { #category : #actions }
